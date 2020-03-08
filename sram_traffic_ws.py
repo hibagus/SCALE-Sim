@@ -380,7 +380,7 @@ def gen_trace_ifmap_partial(
     rc = filt_w * num_channels
     hc = ifmap_w * num_channels
     
-
+    # Modify the formula to include the floor function
     E_w = math.floor((ifmap_w - filt_w + stride) / stride)
     E_h = math.floor((ifmap_h - filt_h + stride) / stride)
     
