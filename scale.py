@@ -172,29 +172,47 @@ class scale:
 
     def run_sweep(self):
 
-        all_data_flow_list = ['os', 'ws', 'is']
-        all_arr_dim_list = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384]
-        all_sram_sz_list = [256, 512, 1024]
+        #all_data_flow_list = ['os', 'ws', 'is']
+        #all_arr_dim_list = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384]
+        #all_sram_sz_list = [256, 512, 1024]
 
-        data_flow_list = all_data_flow_list[1:]
-        arr_h_list = all_arr_dim_list[3:8]
-        arr_w_list = all_arr_dim_list[3:8]
+        all_data_flow_list = ['ws'] # We check weight stationary only as specified by the lab
+        all_arr_dim_list = [128, 256, 512]
+        all_isram_sz_list= [256, 512, 1024, 2048, 4096, 5120]
+        all_fsram_sz_list= [256, 512, 1024, 2048, 4096, 5120]
+        all_osram_sz_list= [256, 512, 1024, 2048, 4096, 5120]
+
+        data_flow_list = all_data_flow_list
+        arr_h_list = all_arr_dim_list
+        arr_w_list = all_arr_dim_list
         #arr_w_list = list(reversed(arr_h_list))
 
         net_name = self.topology_file.split('/')[-1].split('.')[0]
         for df in data_flow_list:
             self.dataflow = df
 
-            for i in range(len(arr_h_list)):
-                self.ar_h_min = arr_h_list[i]
-                self.ar_w_min = arr_w_list[i]
+            for isram_sz in range(len(all_isram_sz_list)):
+                self.isram_min = all_isram_sz_list[isram_sz]
+                for fsram_sz in range(len(all_fsram_sz_list)):
+                    self.fsram_min = all_fsram_sz_list[fsram_sz]
+                    for osram_sz in range(len(all_osram_sz_list)):
+                        self.osram_min = all_osram_sz_list[osram_sz]
+                        for i in range(len(arr_h_list)):
+                            self.ar_h_min = arr_h_list[i]
+                            self.ar_w_min = arr_w_list[i]
+                            self.run_name = net_name + "_" + df + "_" + str(self.ar_h_min) + "x" + str(self.ar_w_min) + "_" + str(self.isram_min) + "+" + str(self.fsram_min) + "+" +str(self.osram_min)
+                            self.run_once()
 
-                self.run_name = net_name + "_" + df + "_" + str(self.ar_h_min) + "x" + str(self.ar_w_min)
 
-                self.run_once()
+            ##for i in range(len(arr_h_list)):
+            ##    self.ar_h_min = arr_h_list[i]
+            ##    self.ar_w_min = arr_w_list[i]
+            ##    self.run_name = net_name + "_" + df + "_" + str(self.ar_h_min) + "x" + str(self.ar_w_min)
+            ##    self.run_once()
+
 
 def main(argv):
-    s = scale(save = False, sweep = False)
+    s = scale(save = False, sweep = True) # Bagus Change This
     s.run_scale()
 
 if __name__ == '__main__':
