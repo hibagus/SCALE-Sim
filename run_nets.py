@@ -14,9 +14,14 @@ def run_net( ifmap_sram_size=1,
              offset_list = [0, 10000000, 20000000]
             ):
 
-    ifmap_sram_size *= 1024
-    filter_sram_size *= 1024
-    ofmap_sram_size *= 1024
+    #Bagus Change This
+    #ifmap_sram_size *= 1024
+    #filter_sram_size *= 1024
+    #ofmap_sram_size *= 1024
+
+    ifmap_sram_size *= 1
+    filter_sram_size *= 1
+    ofmap_sram_size *= 1
 
     #fname = net_name + ".csv"
     param_file = open(topology_file, 'r')
