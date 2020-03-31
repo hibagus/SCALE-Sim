@@ -80,6 +80,8 @@ def gen_all_traces(
         dram_trace_file=dram_ifmap_trace_file,
     )
 
+    #print("IFMAP SRAM Size: \t" + str(ifmap_sram_size))
+
     dram.dram_trace_read_v2(
         sram_sz= filter_sram_size,
         word_sz_bytes= word_size_bytes,
@@ -325,6 +327,17 @@ def gen_bw_numbers( dram_ifmap_trace_file, dram_filter_trace_file,
     print("DRAM IFMAP Read BW  : \t" + str(dram_activation_bw) + units)
     print("DRAM Filter Read BW : \t" + str(dram_filter_bw) + units)
     print("DRAM OFMAP Write BW : \t" + str(dram_ofmap_bw) + units)
+    
+    # Bagus added this
+    units = " Bytes"
+    print("DRAM IFMAP Read BW  : \t" + str(num_dram_activation_bytes) + units)
+    print("DRAM Filter Read BW : \t" + str(num_dram_filter_bytes) + units)
+    print("DRAM OFMAP Write BW : \t" + str(num_dram_ofmap_bytes) + units)
+    print("Max Clock           : \t" + str(max_clk) + " cycles")
+    print("Delta Clock         : \t" + str(delta_clk) + " cycles")
+    print("Min Clock           : \t" + str(min_clk) + " cycles")
+    
+
     #print("Average utilization : \t"  + str(avg_util) + " %")
     #print("SRAM OFMAP Write BW, Min clk, Max clk")
     
