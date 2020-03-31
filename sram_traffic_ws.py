@@ -128,6 +128,7 @@ def sram_traffic(
                 del_cycl = cycles - prev_cycl
                 util += util_this_fold *  del_cycl
                 compute_cycles += del_cycl
+                #print(del_cycl)
                 prev_cycl = cycles
 
         else:
@@ -189,6 +190,7 @@ def sram_traffic(
             util_this_fold = tmp_util /(dimension_rows * dimension_cols)
             util += util_this_fold * del_cycl
             compute_cycles += del_cycl
+            #print(del_cycl)
             prev_cycl = cycles
 
         remaining_cols -= cols_this_fold
